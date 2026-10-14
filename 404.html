@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Страница не найдена · Mercura</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* Layout: one dark centred stage; the zero of "404" is Mercura's liquid ring. */
+:root{--bg:#07070c;--fg:#ecebf5;--muted:#8a89a3;--line:#23233a;--i1:#7ef9ff;--i2:#b48cff;--i3:#ff8ad8;--i4:#ffd27a;
+  --irid:linear-gradient(100deg,var(--i1),var(--i2) 30%,var(--i3) 55%,var(--i4) 75%,var(--i1));
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;--body:"Manrope",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:radial-gradient(110% 80% at 50% 40%,#12101f 0%,var(--bg) 60%);background-color:var(--bg);color:var(--fg);font:16px/1.6 var(--body);overflow-x:hidden}
+.wrap{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;gap:10px}
+.code{display:flex;align-items:center;gap:clamp(8px,2vw,22px);font:700 clamp(96px,22vw,220px)/1 var(--display);letter-spacing:-.02em}
+.code span{background:var(--irid);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 8s linear infinite}
+.ring{position:relative;width:clamp(84px,19vw,190px);aspect-ratio:1/1}
+.ring::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,var(--i1),var(--i2),var(--i3),var(--i4),var(--i1));
+  -webkit-mask:radial-gradient(circle,transparent 33%,#000 34%,#000 69%,transparent 70%);mask:radial-gradient(circle,transparent 33%,#000 34%,#000 69%,transparent 70%);
+  animation:spin 6s linear infinite,morph 4s ease-in-out infinite;filter:drop-shadow(0 0 30px rgba(180,140,255,.55))}
+.drop{position:absolute;width:16%;aspect-ratio:1;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--irid);background-size:300% 300%;left:42%;top:86%;
+  animation:drip 3.2s cubic-bezier(.5,0,.8,.6) infinite,sheen 3s linear infinite;box-shadow:0 0 16px rgba(180,140,255,.6)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes morph{50%{border-radius:46% 54% 52% 48%/56% 44% 56% 44%}}
+@keyframes sheen{to{background-position:-250% 0}}
+@keyframes drip{0%{transform:translateY(-30%) scale(.2);opacity:0}25%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(420%) scaleY(1.4);opacity:0}}
+h1{font:500 clamp(22px,3.6vw,34px)/1.2 var(--display);margin:26px 0 0;text-wrap:balance}
+p{color:var(--muted);max-width:44ch;margin:6px 0 22px}
+.btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:99px;padding:14px 24px;font:700 15px var(--body);text-decoration:none;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.prime{background:var(--irid);background-size:200% 100%;animation:sheen 6s linear infinite;color:#0a0a12}
+.ghost{border:1px solid var(--line);color:var(--fg)}
+.ghost:hover{border-color:var(--i2)}
+.mono{font:12px var(--mono);color:var(--muted);letter-spacing:.3em;text-transform:uppercase;margin-top:34px}
+:focus-visible{outline:2px solid var(--i1);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<script src="/metrika.js"></script>
+</head>
+<body>
+<main class="wrap">
+  <div class="code" aria-label="404"><span>4</span><div class="ring" aria-hidden="true"><i class="drop"></i></div><span>4</span></div>
+  <h1>Такой страницы нет</h1>
+  <p>Похоже, ссылка утекла, как ртуть. Вернитесь на главную или напишите мне, если что-то сломалось.</p>
+  <div class="btns">
+    <a class="btn prime" href="/">На главную →</a>
+    <a class="btn ghost" href="https://t.me/mercura_manager" target="_blank" rel="noopener">Написать в Telegram</a>
+  </div>
+  <div class="mono">MERCURA · liquid web studio</div>
+</main>
+</body>
+</html>

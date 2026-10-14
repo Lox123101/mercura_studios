@@ -11,7 +11,7 @@
 <meta property="og:site_name" content="Mercura">
 <meta property="og:title" content="Mercura — сайты, которые текут как ртуть и продают">
 <meta property="og:description" content="Лендинги, магазины и 3D-сайты с живой анимацией. Посмотрите работы и напишите в Telegram.">
-<meta property="og:url" content="https://mercurastudios-voxw.vercel.app/">
+<meta property="og:url" content="https://mercura.vercel.app/">
 <meta property="og:image" content="https://mercura.vercel.app/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -116,6 +116,21 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;backdrop-filt
 @keyframes fabPulse{0%{opacity:.9;transform:scale(.96)}100%{opacity:0;transform:scale(1.25)}}
 @media (prefers-reduced-motion:reduce){.tg-fab{transition:none}}
 .cookie-on .tg-fab{bottom:calc(110px + env(safe-area-inset-bottom,0px))}
+/* ---------- preloader: liquid ring while 3D and fonts load ---------- */
+.preload{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;
+  animation:plAuto .6s ease 5s forwards}
+.preload.done{opacity:0;visibility:hidden;transform:scale(1.04);transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1),visibility 0s .6s}
+@keyframes plAuto{to{opacity:0;visibility:hidden}}
+.pl-ring-unused{width:92px;height:92px;border-radius:50%;background:conic-gradient(from 0deg,var(--i1),var(--i2),var(--i3),var(--i4),var(--i1));
+  -webkit-mask:radial-gradient(circle,transparent 27px,#000 28px);mask:radial-gradient(circle,transparent 27px,#000 28px);
+  animation:spin 1.4s linear infinite,plMorph 2.2s ease-in-out infinite;filter:drop-shadow(0 0 22px rgba(180,140,255,.6))}
+@keyframes plMorph{50%{border-radius:44% 56% 52% 48%/56% 44% 56% 44%}}
+.pl-cv{width:168px;height:168px;display:block;filter:drop-shadow(0 0 26px rgba(180,140,255,.45));cursor:grab;touch-action:none}
+.pl-word{font:500 18px var(--display);letter-spacing:.42em;padding-left:.42em}
+.pl-bar{width:160px;height:2px;border-radius:2px;background:var(--line);overflow:hidden}
+.pl-bar i{display:block;height:100%;width:40%;background:var(--irid);background-size:200% 100%;animation:plBar 1.1s ease-in-out infinite}
+@keyframes plBar{0%{transform:translateX(-110%)}100%{transform:translateX(280%)}}
+@media (prefers-reduced-motion:reduce){.preload{animation-delay:1s}.pl-ring,.pl-bar i{animation:none}}
 /* service strip (static, with a highlight that walks the items in order) */
 .strip{position:relative;border-block:1px solid var(--line);margin-top:56px;padding-block:24px;overflow:hidden}
 .strip-beam{position:absolute;left:0;height:1px;width:160px;background:linear-gradient(90deg,transparent,var(--c,var(--i2)),transparent);box-shadow:0 0 12px var(--c,var(--i2));transition:transform .6s cubic-bezier(.5,0,.2,1),width .6s,background .6s;pointer-events:none}
@@ -406,6 +421,44 @@ a.work{text-decoration:none;color:inherit}
 .ms-foot{padding:22px 16px 26px;font:10px var(--mono);color:var(--muted);text-align:center}
 @media (prefers-reduced-motion:reduce){.ip:hover{transform:none}}
 
+/* ---------- about: text + a contract sheet signed by an animated pen ---------- */
+.about{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center;margin-top:44px}
+.about > *{min-width:0}
+@media (max-width:900px){.about{grid-template-columns:1fr;gap:36px}}
+.about-txt p{color:var(--muted);font-size:17px;max-width:52ch;margin:0 0 16px}
+.about-txt p b{color:var(--fg);font-weight:600}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 30px}
+.facts span{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:99px;padding:8px 14px;font:500 13px var(--mono);color:var(--fg);background:var(--panel)}
+.facts span i{width:7px;height:7px;border-radius:50%;background:var(--irid)}
+.sheet-wrap{position:relative;perspective:1200px}
+.sheet{--paper:#f6f4ef;--ink:#1f2340;--rule:#d9d4c8;--txt:#3b3a44;position:relative;background:var(--paper);color:var(--txt);border-radius:6px;padding:34px 36px 30px;transform:rotate(-1.6deg);
+  box-shadow:0 1px 0 #fff inset,0 40px 80px -30px rgba(0,0,0,.8),0 0 0 1px rgba(0,0,0,.06);
+  background-image:radial-gradient(120% 80% at 0% 0%,rgba(255,255,255,.7),transparent 60%),repeating-linear-gradient(0deg,transparent 0 31px,rgba(35,48,110,.035) 31px 32px);font-family:var(--body)}
+.sheet::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,transparent 60%,rgba(0,0,0,.05))}
+.sh-top{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--txt);padding-bottom:12px}
+.sh-brand{display:flex;align-items:center;gap:10px;font:600 13px var(--display);letter-spacing:.24em;color:#1a1a24}
+.sh-brand i{width:20px;height:20px;border-radius:50%;background:conic-gradient(#7ef9ff,#b48cff,#ff8ad8,#ffd27a,#7ef9ff);-webkit-mask:radial-gradient(circle,transparent 4.5px,#000 5.5px);mask:radial-gradient(circle,transparent 4.5px,#000 5.5px)}
+.sh-no{font:500 12px var(--mono);color:#77737f}
+.sh-title{font:600 clamp(17px,2vw,21px)/1.25 var(--display);color:#1a1a24;margin:22px 0 18px;letter-spacing:.01em}
+.sh-row{display:grid;grid-template-columns:130px 1fr;gap:12px;padding:9px 0;border-bottom:1px dashed var(--rule);font-size:14.5px}
+.sh-row span:first-child{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#8a8592;padding-top:3px}
+.sh-row b{font-weight:600;color:#1f1e27}
+.sh-row em{font-style:italic;color:#9a95a2}
+@media (max-width:520px){.sheet{padding:26px 20px 24px}.sh-row{grid-template-columns:1fr;gap:2px}.sh-sign{flex-direction:column;align-items:stretch;gap:4px}.sh-sign .lbl{width:auto;padding-bottom:0}.sig-box svg.stamp{width:96px;height:96px}}
+.sh-sign{position:relative;margin-top:26px;display:flex;align-items:flex-end;gap:16px}
+.sh-sign .lbl{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#8a8592;flex:none;padding-bottom:10px;width:110px}
+.sig-box{position:relative;flex:1;min-width:0;border-bottom:1.5px solid var(--txt)}
+.sig-box svg{display:block;width:100%;height:auto;overflow:visible}
+.sig-box svg.stamp{width:118px;height:118px}
+.sig-ink path{fill:none;stroke:var(--ink);stroke-linecap:round;stroke-linejoin:round}
+.sh-date{display:flex;justify-content:space-between;margin-top:10px;font:500 12px var(--mono);color:#8a8592}
+.stamp{position:absolute;right:6%;bottom:-6px;width:118px;height:118px;opacity:0;transform:scale(1.7) rotate(-24deg);pointer-events:none;mix-blend-mode:multiply}
+.stamp.on{animation:stampIn .5s cubic-bezier(.3,1.6,.5,1) forwards}
+@keyframes stampIn{0%{opacity:0;transform:scale(1.7) rotate(-24deg)}60%{opacity:.9;transform:scale(.94) rotate(-14deg)}100%{opacity:.82;transform:scale(1) rotate(-14deg)}}
+.replay{position:absolute;right:4px;top:-46px;background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:7px 14px;font:500 12px var(--body);cursor:pointer;opacity:0;transition:opacity .4s}
+.replay.on{opacity:1}
+.replay:hover{color:var(--fg);border-color:var(--i2)}
+@media (prefers-reduced-motion:reduce){.stamp.on{animation:none;opacity:.82;transform:rotate(-14deg)}}
 /* services + calculator */
 .svc{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:44px}
 .svc > *{min-width:0}
@@ -507,11 +560,94 @@ footer{border-top:1px solid var(--line);margin-top:96px;padding-block:28px}
 
 <div class="grid-bg" aria-hidden="true"></div>
 
+<div class="preload" id="preload" aria-hidden="true"><canvas class="pl-cv" id="plCv" width="168" height="168"></canvas><div class="pl-word irid">MERCURA</div><div class="pl-bar"><i></i></div></div>
+<script>
+/* ---------- preloader: the ring starts empty and fills with liquid in 1.5 s (spring-water surface, bubbles, splashes) ---------- */
+(function(){
+  const pl=document.getElementById('preload'),cv=document.getElementById('plCv');if(!pl)return;
+  const FILL=1500,HOLD=350;
+  const t0=performance.now();let loaded=document.readyState==='complete',filledAt=0,gone=false;
+  window.addEventListener('load',()=>{loaded=true;});
+  const hide=()=>{if(gone)return;gone=true;pl.classList.add('done');setTimeout(()=>pl.remove(),900);};
+  setTimeout(hide,4500); // never block the site
+  if(!cv||!cv.getContext){setTimeout(hide,FILL);return;}
+  const dpr=Math.min(window.devicePixelRatio||1,2),S=168;cv.width=S*dpr;cv.height=S*dpr;
+  const g=cv.getContext('2d');g.scale(dpr,dpr);
+  const C=S/2,RO=62,RI=36,TOP=C-RO,BOT=C+RO;
+  const N=56,dx=(2*RO)/(N-1),h=new Float32Array(N),v=new Float32Array(N);
+  const parts=[],bubbles=[];
+  const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+  const cols=['#7ef9ff','#b48cff','#ff8ad8','#ffd27a'];
+  function splash(i,force){i=Math.max(1,Math.min(N-2,i|0));v[i]+=force;v[i-1]+=force*.5;v[i+1]+=force*.5;
+    for(let k=0;k<3;k++)parts.push({x:C-RO+i*dx,y:0,vx:(Math.random()-.5)*60,vy:-60-Math.random()*90*Math.min(1,Math.abs(force)/120),life:1,c:cols[(Math.random()*4)|0],fresh:true});}
+  // pointer stirs the liquid
+  let px=null;
+  cv.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*(S/r.width);const i=Math.round((x-(C-RO))/dx);if(px!==null&&Math.abs(x-px)>2)splash(i,(x-px)*6);px=x;});
+  cv.addEventListener('pointerleave',()=>{px=null;});
+  let last=t0,acc=0,pour=0;
+  function step(dt,level){
+    // springs pull each column to the rising level; neighbours share motion (wave propagation)
+    for(let i=0;i<N;i++){v[i]+=(-38*h[i]-3.2*v[i])*dt;}
+    for(let pass=0;pass<4;pass++)for(let i=0;i<N;i++){
+      if(i>0){const d=.18*(h[i]-h[i-1]);v[i-1]+=d*60*dt;v[i]-=d*60*dt;}
+      if(i<N-1){const d=.18*(h[i]-h[i+1]);v[i+1]+=d*60*dt;v[i]-=d*60*dt;}}
+    for(let i=0;i<N;i++)h[i]+=v[i]*dt;
+    for(let k=parts.length-1;k>=0;k--){const p=parts[k];if(p.fresh){p.y=level+h[Math.round((p.x-(C-RO))/dx)]||level;p.fresh=false;}
+      p.vy+=420*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt*1.4;if(p.life<=0||p.y>level+4&&p.vy>0)parts.splice(k,1);}
+    for(let k=bubbles.length-1;k>=0;k--){const b=bubbles[k];b.y-=b.s*dt;b.x+=Math.sin(b.y*.15+b.p)*.25;if(b.y<level+2)bubbles.splice(k,1);}
+  }
+  function draw(now,level,fillK){
+    g.clearRect(0,0,S,S);
+    // empty ring outline
+    g.lineWidth=1.2;g.strokeStyle='rgba(180,140,255,'+(.35*(1-fillK)+.15)+')';
+    g.beginPath();g.arc(C,C,RO-.6,0,Math.PI*2);g.stroke();g.beginPath();g.arc(C,C,RI+.6,0,Math.PI*2);g.stroke();
+    g.save();
+    g.beginPath();g.arc(C,C,RO,0,Math.PI*2);g.arc(C,C,RI,0,Math.PI*2,true);g.clip('evenodd');
+    // liquid body
+    const sh=(now/1000)*40%(4*RO);
+    const gr=g.createLinearGradient(C-RO-sh,TOP,C+RO*3-sh,BOT);
+    for(let k=0;k<=8;k++)gr.addColorStop(k/8,cols[k%4]);
+    g.beginPath();g.moveTo(C-RO,BOT+2);
+    for(let i=0;i<N;i++)g.lineTo(C-RO+i*dx,level+h[i]);
+    g.lineTo(C+RO,BOT+2);g.closePath();g.fillStyle=gr;g.fill();
+    // glossy depth + surface highlight
+    const dg=g.createLinearGradient(0,level,0,BOT);dg.addColorStop(0,'rgba(255,255,255,.18)');dg.addColorStop(.25,'rgba(255,255,255,0)');dg.addColorStop(1,'rgba(10,10,20,.35)');
+    g.fillStyle=dg;g.fill();
+    g.beginPath();for(let i=0;i<N;i++){const y=level+h[i];i?g.lineTo(C-RO+i*dx,y):g.moveTo(C-RO,y);}
+    g.strokeStyle='rgba(255,255,255,.75)';g.lineWidth=1.4;g.stroke();
+    // bubbles + droplets
+    for(const b of bubbles){g.beginPath();g.arc(b.x,b.y,b.r,0,Math.PI*2);g.strokeStyle='rgba(255,255,255,.55)';g.lineWidth=.8;g.stroke();}
+    for(const p of parts){g.globalAlpha=Math.max(0,p.life);g.beginPath();g.arc(p.x,p.y,2.2,0,Math.PI*2);g.fillStyle=p.c;g.fill();}
+    g.globalAlpha=1;
+    // specular sheen on the ring tube
+    const hl=g.createRadialGradient(C-RO*.45,C-RO*.55,2,C-RO*.45,C-RO*.55,RO*.9);hl.addColorStop(0,'rgba(255,255,255,.28)');hl.addColorStop(1,'rgba(255,255,255,0)');
+    g.fillStyle=hl;g.fillRect(0,0,S,S);
+    g.restore();
+  }
+  function frame(now){
+    if(gone&&!pl.isConnected)return;
+    const el=now-t0,fillK=Math.min(1,el/FILL);
+    const level=BOT-(BOT-TOP+6)*ease(fillK);
+    let dt=Math.min(.05,(now-last)/1000);last=now;
+    // pouring impulses while filling, a final slosh when full
+    pour+=dt;
+    if(fillK<1&&pour>.09){pour=0;splash(N/2+(Math.random()-.5)*N*.7,-(40+Math.random()*90));
+      if(level<BOT-6)bubbles.push({x:C+(Math.random()-.5)*RO*1.6,y:BOT-4,r:1+Math.random()*2.2,s:30+Math.random()*50,p:Math.random()*6});}
+    if(fillK>=1&&!filledAt){filledAt=now;splash(N*.3,-140);splash(N*.7,-120);}
+    acc+=dt;while(acc>1/120){step(1/120,level);acc-=1/120;}
+    draw(now,level,fillK);
+    if(filledAt&&now-filledAt>HOLD&&loaded)hide();
+    requestAnimationFrame(frame);
+  }
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){draw(t0,TOP-6,1);setTimeout(hide,600);return;}
+  requestAnimationFrame(frame);
+})();
+</script>
 <header>
   <div class="wrap nav">
     <a class="brand" href="#top" aria-label="Mercura — наверх"><i></i>MERCURA</a>
     <nav class="links" aria-label="Разделы">
-      <a href="#works">Работы</a><a href="#services">Услуги</a><a href="#process">Процесс</a><a href="#why">Почему я</a>
+      <a href="#works">Работы</a><a href="#about">Обо мне</a><a href="#services">Услуги</a><a href="#process">Процесс</a><a href="#why">Почему я</a>
     </nav>
     <a class="btn sm prime" href="#contact">Обсудить проект</a>
   </div>
@@ -560,7 +696,7 @@ footer{border-top:1px solid var(--line);margin-top:96px;padding-block:28px}
   </div>
 
   <div class="strip"><i class="strip-beam t" aria-hidden="true"></i><i class="strip-beam b" aria-hidden="true"></i>
-    <div class="wrap strip-in"><span style="--d:0.0s;--c:var(--i1)">Лендинги</span><span style="--d:0.8s;--c:var(--i2)">3D / WebGL</span><span style="--d:1.6s;--c:var(--i3)">Интернет-магазины</span><span style="--d:2.4000000000000004s;--c:var(--i4)">Анимация</span><span style="--d:3.2s;--c:var(--i1)">SEO-база</span><span style="--d:4.0s;--c:var(--i2)">Адаптив</span><span style="--d:4.800000000000001s;--c:var(--i3)">Корпоративные сайты</span><span style="--d:5.6000000000000005s;--c:var(--i4)">Telegram-боты для заявок</span></div>
+    <div class="wrap strip-in"><span style="--c:var(--i1)">Лендинги</span><span style="--c:var(--i2)">3D / WebGL</span><span style="--c:var(--i3)">Интернет-магазины</span><span style="--c:var(--i4)">Анимация</span><span style="--c:var(--i1)">Адаптив</span><span style="--c:var(--i2)">Корпоративные сайты</span><span style="--c:var(--i3)">Telegram-боты для заявок</span></div>
   </div>
 
   <div class="wrap">
@@ -757,6 +893,72 @@ footer{border-top:1px solid var(--line);margin-top:96px;padding-block:28px}
       </div>
     </section>
 
+    <section id="about">
+      <p class="eyebrow">Обо мне</p>
+      <div class="about">
+        <div class="about-txt">
+          <h2>Привет, я <span class="irid">Семён</span></h2>
+          <p class="lead" style="margin-bottom:22px">Делаю сайты около двух лет и живу в Москве.</p>
+          <p>Больше всего люблю <b>копаться в коде</b>: разбираться, как устроена каждая деталь, и доводить её до идеала. Поэтому мои сайты не собраны из шаблона, а сделаны так, как задумано: с живой анимацией и вниманием к мелочам.</p>
+          <p>Вы общаетесь <b>напрямую со мной</b>, от первого сообщения до запуска. Без менеджеров и испорченного телефона.</p>
+          <div class="facts"><span><i></i>Москва</span><span><i></i>≈ 2 года в разработке</span><span><i></i>Работаю лично</span></div>
+          <a class="btn prime" href="https://t.me/mercura_manager" target="_blank" rel="noopener">Написать Семёну в Telegram →</a>
+        </div>
+        <div class="sheet-wrap">
+          <button class="replay" type="button" id="sigReplay">↻ Подписать ещё раз</button>
+          <div class="sheet" id="sheet">
+            <div class="sh-top"><span class="sh-brand"><i></i>MERCURA</span><span class="sh-no">№ 0001 · Москва</span></div>
+            <div class="sh-title">Договор на разработку сайта</div>
+            <div class="sh-row"><span>Исполнитель</span><b>Семён, веб-разработчик</b></div>
+            <div class="sh-row"><span>Заказчик</span><em>ваша компания</em></div>
+            <div class="sh-row"><span>Предмет</span><b>Уникальный сайт под ключ</b></div>
+            <div class="sh-row"><span>Условия</span><b>Работаю лично, от брифа до запуска</b></div>
+            <div class="sh-sign">
+              <span class="lbl">Подпись исполнителя</span>
+              <div class="sig-box">
+                <svg viewBox="0 0 640 240" aria-label="Подпись Семёна">
+                  <g transform="translate(40 0) skewX(-18)">
+                    <g class="sig-ink" id="sigInk">
+                      <path id="sigMain" d="M 236 72 C 160 30, 46 60, 48 126 C 50 182, 150 196, 206 152 C 222 138, 232 100, 242 58 C 236 96, 228 128, 226 150 C 229 116, 231.8 108, 233.2 114 C 234.4 124, 235.1 148, 239 147 C 242 127, 244.8 119, 246.2 125 C 247.4 135, 248.1 148, 252 147 C 255 122, 257.9 114, 259.1 120 C 260.4 130, 261.1 148, 265 147 C 268 131, 270.9 123, 272.1 129 C 273.4 139, 274.1 148, 278 147 C 281 125, 283.9 117, 285.1 123 C 286.4 133, 287.1 148, 291 147 C 294 133, 296.9 125, 298.1 131 C 299.4 141, 300.1 148, 304 147 C 307 128, 309.9 120, 311.1 126 C 312.4 136, 313.1 148, 317 147 C 320 135, 323.8 127, 325.2 133 C 326.8 143, 327.5 148, 332 147 C 335 131, 338.8 123, 340.2 129 C 341.8 139, 342.5 148, 347 147 C 357 140, 369 110, 381 96 C 387 84, 377 120, 387 146 C 407 150, 457 146, 628 132" stroke-width="1.5" transform="translate(-.6 .6)"/>
+                      <path d="M 236 72 C 160 30, 46 60, 48 126 C 50 182, 150 196, 206 152 C 222 138, 232 100, 242 58 C 236 96, 228 128, 226 150 C 229 116, 231.8 108, 233.2 114 C 234.4 124, 235.1 148, 239 147 C 242 127, 244.8 119, 246.2 125 C 247.4 135, 248.1 148, 252 147 C 255 122, 257.9 114, 259.1 120 C 260.4 130, 261.1 148, 265 147 C 268 131, 270.9 123, 272.1 129 C 273.4 139, 274.1 148, 278 147 C 281 125, 283.9 117, 285.1 123 C 286.4 133, 287.1 148, 291 147 C 294 133, 296.9 125, 298.1 131 C 299.4 141, 300.1 148, 304 147 C 307 128, 309.9 120, 311.1 126 C 312.4 136, 313.1 148, 317 147 C 320 135, 323.8 127, 325.2 133 C 326.8 143, 327.5 148, 332 147 C 335 131, 338.8 123, 340.2 129 C 341.8 139, 342.5 148, 347 147 C 357 140, 369 110, 381 96 C 387 84, 377 120, 387 146 C 407 150, 457 146, 628 132" stroke-width="1.5"/>
+                      <path d="M 236 72 C 160 30, 46 60, 48 126 C 50 182, 150 196, 206 152 C 222 138, 232 100, 242 58 C 236 96, 228 128, 226 150 C 229 116, 231.8 108, 233.2 114 C 234.4 124, 235.1 148, 239 147 C 242 127, 244.8 119, 246.2 125 C 247.4 135, 248.1 148, 252 147 C 255 122, 257.9 114, 259.1 120 C 260.4 130, 261.1 148, 265 147 C 268 131, 270.9 123, 272.1 129 C 273.4 139, 274.1 148, 278 147 C 281 125, 283.9 117, 285.1 123 C 286.4 133, 287.1 148, 291 147 C 294 133, 296.9 125, 298.1 131 C 299.4 141, 300.1 148, 304 147 C 307 128, 309.9 120, 311.1 126 C 312.4 136, 313.1 148, 317 147 C 320 135, 323.8 127, 325.2 133 C 326.8 143, 327.5 148, 332 147 C 335 131, 338.8 123, 340.2 129 C 341.8 139, 342.5 148, 347 147 C 357 140, 369 110, 381 96 C 387 84, 377 120, 387 146 C 407 150, 457 146, 628 132" stroke-width="1.5" transform="translate(.6 -.6)"/>
+                      <path id="sigUnder" d="M 10 188 C 120 177, 270 170, 476 160 C 492 159, 500 156, 494 152" stroke-width="1.7"/>
+                    </g>
+                  </g>
+                  <g id="pen" style="opacity:0">
+                    <g transform="rotate(-38)">
+                      <path d="M0 0 L-5 -16 L0 -21 L5 -16 Z" fill="#c9a24a"/>
+                      <path d="M0 -3 L0 -15" stroke="#7a5a1c" stroke-width="1"/>
+                      <rect x="-6.5" y="-31" width="13" height="11" rx="2" fill="#1a1a24"/>
+                      <rect x="-7.5" y="-37" width="15" height="7" rx="1.5" fill="#d8b45c"/>
+                      <rect x="-8" y="-118" width="16" height="82" rx="7" fill="#15151f"/>
+                      <rect x="-5" y="-112" width="3" height="70" rx="1.5" fill="#ffffff22"/>
+                      <rect x="6" y="-100" width="3" height="46" rx="1.5" fill="#d8b45c"/>
+                      <rect x="-8.5" y="-124" width="17" height="8" rx="4" fill="#d8b45c"/>
+                    </g>
+                  </g>
+                </svg>
+                <svg class="stamp" id="stamp" viewBox="0 0 120 120" aria-hidden="true">
+                  <defs>
+                    <path id="stampArc" d="M60 60 m-41 0 a41 41 0 1 1 82 0 a41 41 0 1 1 -82 0"/>
+                    <filter id="grunge"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.6"/><feComposite in="SourceGraphic" operator="in"/></filter>
+                  </defs>
+                  <g filter="url(#grunge)" fill="none" stroke="#5b3df5">
+                    <circle cx="60" cy="60" r="54" stroke-width="3.5"/>
+                    <circle cx="60" cy="60" r="31" stroke-width="1.6"/>
+                    <text font-family="Unbounded,sans-serif" font-size="9.6" font-weight="600" letter-spacing="2.2" fill="#5b3df5" stroke="none"><textPath href="#stampArc">MERCURA · WEB STUDIO · МОСКВА ·</textPath></text>
+                    <text x="60" y="57" text-anchor="middle" font-family="Unbounded,sans-serif" font-size="10" font-weight="700" fill="#5b3df5" stroke="none">ОДОБРЕНО</text>
+                    <text x="60" y="70" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#5b3df5" stroke="none">★ 2026 ★</text>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <div class="sh-date"><span id="sigDate">«__» ________ 2026 г.</span><span>М. П.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="services">
       <p class="eyebrow">Услуги</p>
       <h2>Что я могу<br>сделать для вас</h2>
@@ -872,6 +1074,9 @@ footer{border-top:1px solid var(--line);margin-top:96px;padding-block:28px}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
+
+
+
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- typed terminal ---------- */
@@ -999,6 +1204,43 @@ document.addEventListener('click',e=>{if(!window.__goal)return;const a=e.target.
   new IntersectionObserver(es=>{pastHero=!es[0].isIntersecting;upd();}).observe(hero);
   new IntersectionObserver(es=>{atContact=es[0].isIntersecting;upd();},{threshold:.15}).observe(contact);
   fab.addEventListener('click',()=>window.__goal&&window.__goal('tg_fab'));
+})();
+
+/* ---------- about: the pen signs the contract when it scrolls into view ---------- */
+(function(){
+  const sheet=document.getElementById('sheet');if(!sheet)return;
+  const main=[...document.querySelectorAll('#sigInk path')].slice(0,3),under=document.getElementById('sigUnder');
+  const ref=document.getElementById('sigMain'),pen=document.getElementById('pen'),stamp=document.getElementById('stamp'),replay=document.getElementById('sigReplay');
+  const L=ref.getTotalLength(),LU=under.getTotalLength(),K=Math.tan(-18*Math.PI/180),TX=40;
+  const months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  const d=new Date();document.getElementById('sigDate').textContent=`«${d.getDate()}» ${months[d.getMonth()]} ${d.getFullYear()} г.`;
+  const setK=k=>main.forEach(p=>{p.style.strokeDasharray=L;p.style.strokeDashoffset=L*(1-k);});
+  const setU=k=>{under.style.strokeDasharray=LU;under.style.strokeDashoffset=LU*(1-k);};
+  const place=(x,y,lift)=>pen.setAttribute('transform',`translate(${x+TX+K*y} ${y-lift})`);
+  function reset(){setK(0);setU(0);stamp.classList.remove('on');pen.style.opacity=0;replay.classList.remove('on');}
+  function finish(){setK(1);setU(1);stamp.classList.add('on');replay.classList.add('on');}
+  let running=false;
+  function play(){
+    if(running)return;running=true;reset();
+    // a quick, confident hand: big oval, the initial, a fast zigzag, the long tail; then a lift and the underline
+    const T1=2300,T2=380,T3=520,T4=420,start=performance.now();
+    const prog=x=>x<.5?.5*Math.pow(2*x,1.35):1-.5*Math.pow(2-2*x,1.8);
+    const endM=ref.getPointAtLength(L),stU=under.getPointAtLength(0),endU=under.getPointAtLength(LU);
+    (function f(now){
+      const t=Math.max(0,now-start);
+      if(t<T1){const k=Math.min(1,Math.max(0,prog(t/T1)));setK(k);const p=ref.getPointAtLength(L*k);place(p.x-.6,p.y+.6,0);pen.style.opacity=Math.min(1,t/150);}
+      else if(t<T1+T2){setK(1);const r=(t-T1)/T2;place(endM.x+(stU.x-endM.x)*r,endM.y+(stU.y-endM.y)*r,Math.sin(r*Math.PI)*46);}
+      else if(t<T1+T2+T3){const r=(t-T1-T2)/T3,k=1-Math.pow(1-r,1.8);setU(k);const p=under.getPointAtLength(LU*k);place(p.x,p.y,0);}
+      else if(t<T1+T2+T3+T4){setU(1);const r=(t-T1-T2-T3)/T4;place(endU.x+r*70,endU.y-r*20,r*90);pen.style.opacity=1-r;}
+      else{pen.style.opacity=0;finish();running=false;return;}
+      requestAnimationFrame(f);
+    })(start);
+  }
+  if(reduce){finish();return;}
+  reset();
+  const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){io.disconnect();setTimeout(play,350);}},{threshold:.5});
+  io.observe(sheet);
+  replay.addEventListener('click',play);
 })();
 
 /* ---------- iPhone demo ---------- */
